@@ -65,10 +65,10 @@ for ci, case in enumerate(cases):
             if sub.team != tid:
                 continue
 
-            score += sub.input * 100 if sub.score else 0
             if dbg: print(" - score", score)
             key = SubId(sub.team, sub.problem, sub.input)
             if key not in seen_subs and sub.score:
+                score += sub.input * 100
                 seen_subs.add(key)
                 penalty += sub.time
                 if dbg: print(" - penalty", sub.time)
