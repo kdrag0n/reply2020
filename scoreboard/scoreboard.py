@@ -71,11 +71,10 @@ for ci, case in enumerate(cases):
             if key not in seen_subs and sub.score:
                 seen_subs.add(key)
                 penalty += sub.time
-                # if dbg: print(" - penalty", sub.time)
-                # if dbg: print(" - score", score)
-                # seen_sub.add(key)
+                if dbg: print(" - penalty", sub.time)
 
         teams.append(Team(tid, score, penalty))
 
+    if dbg: print(f"{case_n} scores:", " ".join(f"{t.id}={t.score}" for t in teams))
     t_ranked = sorted(teams, key=functools.cmp_to_key(cmp_team), reverse=True)
     print(f"Case #{case_n}:", " ".join(str(t.id) for t in t_ranked))  # team id
