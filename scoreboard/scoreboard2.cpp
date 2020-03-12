@@ -26,7 +26,7 @@ typedef map<string, int> msi;
 
 int t, n, l;
 //~ vi penalty_time(n, 0);
-vi scores(n, 0);
+vi scores;
 map<int, map<ii, int>> timestamps;
 map<int, vii> problems_done;
 int timestamp, teamid, problemid, inputid, score;
@@ -43,9 +43,9 @@ bool compare_teams(int team1, int team2)
 			penaltytime_2 += timestamps[team2][key];
 		
 		if (penaltytime_1 == penaltytime_2)
-			return team1 > team2;
+			return team1 < team2;
 		else
-			return penaltytime_1 > penaltytime_2;
+			return penaltytime_1 < penaltytime_2;
 	}
 
 	return scores[team1] > scores[team2];
@@ -79,7 +79,7 @@ int main()
 				if (find(problems_done[teamid].begin(), problems_done[teamid].end(), (ii) {problemid, inputid}) != problems_done[teamid].end())
 				{
 					problems_done[teamid].push_back({problemid, inputid});
-					scores[teamid]++;
+					scores[teamid] += inputid * 100;
 				}
 			}
 		}
