@@ -43,8 +43,12 @@ def cmp_team(a, b):
         return -1
     elif b.penalty > a.penalty:
         return 1
+
+    # num order
+    if a.id > b.id:
+        return -1
     else:
-        return 0
+        return 1
 
 
 dbg = False
