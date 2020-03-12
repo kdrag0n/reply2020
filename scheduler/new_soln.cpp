@@ -28,9 +28,8 @@ int main(){
     int t;
     infile >> t;
 
-    vector<ll> answers;
-
-    loop(t){
+	int x;
+	loop2(x, 1, t){
 
     	ll n,k,m;
     	infile >> n >> k >> m;
@@ -62,14 +61,9 @@ int main(){
 
     		leastTime = min(timeSpent,leastTime);
     	}
+    	
+    	cout << "Case #" << x << ": " << leastTime << "\n";
 
-    	answers.push_back(leastTime);
-
-    }
-
-	int x;
-    loopb(x, 1, t){
-    	cout << "Case #" << x << ": " << answers[x - 1] << endl;
     }
 
     infile.close();
