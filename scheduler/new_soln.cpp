@@ -1,71 +1,75 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+/*
+ * C++ code template for CP
+ * 
+ * While running, input the name of the test file first
+ * Then let it read the file via infile stream
+ * 
+ * Usage: 
+ * 	./solution > output_file
+ *	Enter the path of input file and boom.
+ * 
+ */
+
+
 #include <bits/stdc++.h>
-#include <stack>
-#include <map>
-#include <ctype.h>
 
 using namespace std;
 
-#define loop(n) for (int i = 0; i < n; ++i) 
-#define loopll(n) for (long long i = 0; i < n; ++i)
-#define loop2(i,k,n) for (i = k; i <= n; ++i) 
-#define loopb(i,k,n) for (i = k; i >= n; --i)
-#define remove_space(x) x.erase(remove(x.begin(), x.end(), ' '), x.end())
 typedef long long ll;
+typedef vector<int> vi;
+typedef pair<int, int> ii;
+typedef vector<ii> vii;
+typedef map<string, int> msi;
 
-int main(){
-    
-    ios_base::sync_with_stdio(false);
- 
+#define REP(i, a, b) \
+	for (int i = a; i <= b; i++)
+
+int main()
+{
 	ifstream infile;
 	string filepath;
 	cin >> filepath;
-	infile.open(filepath); 
+	infile.open(filepath);
 
-    int t;
-    infile >> t;
+	int t;
+	infile >> t;
 
-	int x;
-	loop2(x, 1, t){
+	REP(x, 1, t)
+	{
+		int n, k;
+		ll m;
 
-    	ll n,k,m;
-    	infile >> n >> k >> m;
+		infile >> n >> k >> m;
+		vi p;
+		vi s;
 
-    	vector< pair <ll,ll> > PS;
+		REP(i, 1, n)
+		{
+			int temp, temp2;
+			infile >> temp >> temp2;
+			p.push_back(temp);
+			s.push_back(temp2);
+		}
+		cerr << m;
 
-    	loopll(n){
+		int result = -1;
+		vi tasks_done;
+		for (int c = 0; true; c++)
+		{
+			tasks_done.clear();
+			for (int i = 0; i < n; i++)
+				tasks_done.push_back(max(0, (c - p[i]) / s[i]));
 
-    		ll p,s;
-    		infile >> p >> s;
+			sort(tasks_done.begin(), tasks_done.end(), greater<int>());
+			if (accumulate(tasks_done.begin(), tasks_done.begin() + k, 0) >= m)
+			{
+				result = c;
+				break;
+			}
+		}
 
-    		PS.push_back(make_pair(p,s));
-    	}
+		cout << "Case #" << x << ": " << result << "\n";
+	}
 
-    	ll leastTime = INT_MAX;
-
-    	for(int i=0; i<n; ++i){
-
-    		ll timeSpent = 0;
-
-    		ll taskPerServer = m / k;
-
-    		timeSpent += PS[i].first;
-    		timeSpent += PS[i].second * taskPerServer;
-
-    		for(int j=i+1; j<=k; ++j){
-    			timeSpent += PS[j].first + PS[j].second * taskPerServer;
-    		}
-
-    		leastTime = min(timeSpent,leastTime);
-    	}
-    	
-    	cout << "Case #" << x << ": " << leastTime << "\n";
-
-    }
-
-    infile.close();
-	return 0;
+	infile.close();
 }
